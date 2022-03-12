@@ -17,18 +17,25 @@ template <typename T>
 void Wrapper(T &&param)
 {
     foo(std::forward<T>(param));  // 完美转发
+    foo(param);
 }
 
 int main()
 {
-    foo("aaaa");
+    // test1
+    // T = const char(&)[], left, left
+    std::cout << "test1" << std::endl;
+    Wrapper("aaaaa");
 
-    // test1: right value directly
-    Wrapper("aaaa");        // right value
+    // test2
+    // T = std::string &&
+    std::cout << "test2" << std::endl;
+    Wrapper(std::string("aaaaa"));        // right value, left value
     
-    // test2: left value, compile error
-    
-    const std::string test;
+    // test3
+    // T = std::string
+    std::cout << "test3" << std::endl;
+    std::string&& test = "bbbb";          // left value, left value
     Wrapper(test);
     
     return 0;
