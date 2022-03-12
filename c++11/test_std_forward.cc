@@ -21,13 +21,15 @@ void Wrapper(T &&param)
 
 int main()
 {
+    foo("aaaa");
+
     // test1: right value directly
     Wrapper("aaaa");        // right value
     
     // test2: left value, compile error
-    /*
-    std::string test;
+    
+    const std::string test;
     Wrapper(test);
-    */
+    
     return 0;
 }
